@@ -17,6 +17,6 @@
     },
     "dependencies": {
         "jquery": "^3.6.0",
-        "@symfony/webpack-encore": "^1.0.0",
+        "@symfony/webpack-encore": "^1.0.0"
     }
 }
