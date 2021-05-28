@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for game in games %}
+        <a href="{{ path('play',{'id': game.id}) }}">{% trans %}Game{% endtrans %} {{ game.id }}</a>
+    {% endfor %}
+{% endblock %}
+

@@ -23,11 +23,6 @@ class Game
     private $word;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $tries = 0;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $status = "pending";
@@ -37,6 +32,11 @@ class Game
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $guessed = [];
 
     public function getId(): ?int
     {
@@ -87,6 +87,22 @@ class Game
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGuessed(): ?array
+    {
+        return $this->guessed;
+    }
+
+    public function setGuessed(?array $guessed): self
+    {
+        if($this->guessed && $guessed){
+            $this->guessed = array_unique(array_merge($this->guessed,$guessed));
+        }else{
+            $this->guessed = $guessed;
+        }
 
         return $this;
     }
