@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ encore_entry_link_tags('hangman') }}
+
+    <h1 class="status">{{ game.status | trans }}</h1>
+
+    {{ form(form) }}
+
+    <div class="word">
+        {% for letter in game.word | split('')%}
+            {% if letter | upper in game.guessed %}
+                {{ letter }}
+            {% else %}
+            _
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="guessed">
+        {% for letter in game.guessed %}
+            {{ letter | upper }}
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('reset',{'id' : game.id}) }}">{% trans %}Reset the game{% endtrans %}</a>
+
+    {{ encore_entry_script_tags('hangman') }}
+{% endblock %}
