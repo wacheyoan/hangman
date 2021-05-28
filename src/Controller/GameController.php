@@ -34,7 +34,7 @@ class GameController extends AbstractController
             $gameService->handleStatus($game);
         }
 
-        $form = $this->createForm(GameType::class,$game,['tries' => 10]);
+        $form = $this->createForm(GameType::class,$game,['tries' => 11]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

@@ -30,19 +30,20 @@ class GameService
     }
 
     public function handleStatus(Game $game){
-        if(count($game->getGuessed()) >= 10){
-            $game->setStatus('Lost');
-        }else{
-            $len = mb_strlen($game->getWord());
-            $exact = true;
+        $len = mb_strlen($game->getWord());
+        $exact = true;
 
-            for ($i=0; $i < $len ; $i++) {
-                if(!in_array(mb_strtoupper($game->getWord()[$i]), $game->getGuessed(), true)){
-                    $exact = false;
-                }
+        for ($i=0; $i < $len ; $i++) {
+            if(!in_array(mb_strtoupper($game->getWord()[$i]), $game->getGuessed(), true)){
+                $exact = false;
             }
+        }
 
-            if($exact){$game->setStatus('Won');}
+        if($exact){$game->setStatus('Won');}
+
+
+        if(count($game->getGuessed()) > 10 && !$exact){
+            $game->setStatus('Lost');
         }
 
         $this->gameRepository->persist($game);
